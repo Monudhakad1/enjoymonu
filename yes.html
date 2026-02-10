@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ask Her Out - Yes! 💕</title>
+
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    .celebration {
+      animation: celebration 1s ease-in-out;
+    }
+    
+    @keyframes celebration {
+      0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+      50% { transform: scale(1.1) rotate(5deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .heart {
+      position: absolute;
+      color: #ff6b6b;
+      font-size: 2rem;
+      animation: fall 3s linear infinite;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Mobile optimizations for celebration page */
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px 20px;
+        margin: 15px;
+        gap: 20px;
+      }
+      
+      .container h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+      }
+      
+      .container p {
+        font-size: 1.1rem;
+      }
+      
+      .btn a {
+        padding: 18px 35px;
+        font-size: 1.2rem;
+        min-width: 200px;
+        width: 80%;
+      }
+      
+      .heart {
+        font-size: 1.8rem; /* Slightly larger hearts on mobile */
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container h1 {
+        font-size: 1.5rem;
+      }
+      
+      .container p {
+        font-size: 1rem;
+      }
+      
+      .btn a {
+        padding: 16px 30px;
+        font-size: 1.1rem;
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts" id="hearts"></div>
+  
+  <div class="container celebration">
+    <div class="tenor-gif-embed" data-postid="253027946666209433" data-share-method="host" data-aspect-ratio="1.37853"
+      data-width="100%">
+      <a href="https://tenor.com/view/mochi-cat-mochi-and-goma-goma-and-peach-mochi-mochi-peach-cat-gif-gif-253027946666209433">Mochi Cat GIF</a>
+      from <a href="https://tenor.com/search/mochi-gifs">Mochi GIFs</a>
+    </div>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    
+    <h1>I knew it! You Love me a lot 😘</h1>
+    <p>Yay! Now we can be together forever! 💕</p>
+    
+    <div class="btn">
+      <a href="index.html" style="background: linear-gradient(145deg, #ffd700, #ffed4e);">Ask Again? 😄</a>
+    </div>
+  </div>
+
+  <script>
+    // Create falling hearts (optimized for mobile performance)
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '💖';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      document.getElementById('hearts').appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+    
+    // Adjust heart frequency based on device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const heartInterval = isMobile ? 400 : 300;
+    
+    // Create hearts with device-appropriate frequency
+    setInterval(createHeart, heartInterval);
+    
+    // Add celebration vibration for mobile
+    if (isMobile && navigator.vibrate) {
+      // Victory vibration pattern
+      navigator.vibrate([200, 100, 200, 100, 500]);
+    }
+    
+    // Mobile-friendly confetti effect (reduced for performance)
+    if (!isMobile) {
+      // Add extra hearts only on desktop for performance
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          createHeart();
+        }, i * 100);
+      }
+    }
+  </script>
+</body>
+
+</html>

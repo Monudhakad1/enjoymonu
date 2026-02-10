@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💔 Aww, Really? 💔</title>
+
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    .sad-container {
+      animation: sad-entry 1s ease-out;
+    }
+    
+    @keyframes sad-entry {
+      0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    
+    .pleading {
+      animation: pleading-bounce 2s infinite;
+    }
+    
+    @keyframes pleading-bounce {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .tear {
+      position: absolute;
+      color: #4a90e2;
+      font-size: 1.5rem;
+      animation: tear-fall 3s linear infinite;
+    }
+    
+    @keyframes tear-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rain" id="rain"></div>
+  
+  <div class="container sad-container">
+    <div class="tenor-gif-embed" data-postid="22050818" data-share-method="host" data-aspect-ratio="1"
+      data-width="100%">
+      <a href="https://tenor.com/view/mochi-gif-22050818">Mochi Sticker</a>from
+      <a href="https://tenor.com/search/mochi-stickers">Mochi Stickers</a>
+    </div>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    
+    <h1 class="pleading">Please think again! 🙄</h1>
+    <p>itni jaldi na matt bolo😥</p>
+    <div style="background: linear-gradient(45deg, #ffcdd2, #f8bbd9); padding: 15px; border-radius: 15px; margin: 10px 0;">
+      💝 <strong>Wait!</strong> Let me give you more reasons to say yes! 💝
+    </div>
+
+    <div class="btn">
+      <a href="yes.html" id="yesBtn" style="animation: yes-encourage 2s infinite;">Yes! 💕</a>
+      <a href="no2.html" id="move-random">No 💔</a>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+  <script>
+    // Create falling tears (optimized for mobile)
+    function createTear() {
+      const tear = document.createElement('div');
+      tear.className = 'tear';
+      tear.textContent = '💧';
+      tear.style.left = Math.random() * 100 + '%';
+      tear.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      tear.style.animationDelay = Math.random() * 2 + 's';
+      document.getElementById('rain').appendChild(tear);
+      
+      setTimeout(() => {
+        tear.remove();
+      }, 5000);
+    }
+    
+    // Adjust tear frequency for mobile devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const tearInterval = isMobile ? 600 : 400;
+    setInterval(createTear, tearInterval);
+    
+    // Enhanced mobile-friendly yes button encouragement
+    const yesBtn = document.getElementById('yesBtn');
+    
+    if (isMobile) {
+      // Touch events for mobile
+      yesBtn.addEventListener('touchstart', function() {
+        this.innerHTML = '🌟 Perfect Choice! 🌟';
+        this.style.fontSize = '1.3rem';
+        this.style.background = 'linear-gradient(45deg, #ffd700, #ffeb3b, #4caf50)';
+        this.style.transform = 'scale(1.1)';
+        
+        // Vibration feedback
+        if (navigator.vibrate) {
+          navigator.vibrate(150);
+        }
+      });
+      
+      yesBtn.addEventListener('touchend', function() {
+        setTimeout(() => {
+          this.innerHTML = 'Yes! 💕';
+          this.style.fontSize = '1.2rem';
+          this.style.transform = 'scale(1)';
+        }, 200);
+      });
+    } else {
+      // Mouse events for desktop
+      yesBtn.addEventListener('mouseenter', function() {
+        this.innerHTML = '🌟 Perfect Choice! 🌟';
+        this.style.fontSize = '1.2rem';
+        this.style.background = 'linear-gradient(45deg, #ffd700, #ffeb3b, #4caf50)';
+      });
+      
+      yesBtn.addEventListener('mouseleave', function() {
+        this.innerHTML = 'Yes! 💕';
+        this.style.fontSize = '1.1rem';
+      });
+    }
+  </script>
+  
+  <style>
+    @keyframes yes-encourage {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(76, 175, 80, 0.7); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Mobile optimizations for sad page */
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px 20px;
+        margin: 15px;
+        gap: 20px;
+      }
+      
+      .container h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+      }
+      
+      .container p {
+        font-size: 1.1rem;
+      }
+      
+      .btn {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      .btn a {
+        padding: 18px 35px;
+        font-size: 1.2rem;
+        min-width: 160px;
+        width: 80%;
+        max-width: 250px;
+      }
+      
+      .tear {
+        font-size: 1.3rem; /* Smaller tears on mobile */
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container h1 {
+        font-size: 1.5rem;
+      }
+      
+      .container p {
+        font-size: 1rem;
+      }
+      
+      .btn a {
+        padding: 16px 30px;
+        font-size: 1.1rem;
+        width: 90%;
+      }
+      
+      .tear {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</body>
+
+</html>

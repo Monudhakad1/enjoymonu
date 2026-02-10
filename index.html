@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💕 Will You Be Mine? 💕</title>
+
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    /* Typewriter effect */
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #ff6b6b;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: .15em;
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #ff6b6b }
+    }
+    
+    /* Custom cursor */
+    body {
+      cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDIxLjM1TDEwLjU1IDIwLjAzQzUuNCAxNS4zNiAyIDEyLjI3IDIgOC41QzIgNS40MSA0LjQyIDMgNy41IDNDOS4yNCAzIDEwLjkxIDMuODEgMTIgNS4wOEMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzQzE5LjU4IDMgMjIgNS40MSAyMiA4LjVDMjIgMTIuMjcgMTguNiAxNS4zNiAxMy40NSAyMC4wM0wxMiAyMS4zNVoiIGZpbGw9IiNmZjZiNmIiLz4KPHN2Zz4K'), auto;
+    }
+    
+    /* Particle container */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      background: #ff6b6b;
+      border-radius: 50%;
+      animation: particle-float 4s linear infinite;
+    }
+    
+    @keyframes particle-float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(50vh) scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-10vh) scale(0);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="particles" id="particles"></div>
+  
+  <div class="container" id="mainContainer">
+    <div class="tenor-gif-embed" data-postid="22885016" data-share-method="host" data-aspect-ratio="1.04918"
+      data-width="100%">
+      <a href="https://tenor.com/view/manja-gif-22885016">Manja Sticker</a>from
+      <a href="https://tenor.com/search/manja-stickers">Manja Stickers</a>
+    </div>
+    
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <h1 class="typewriter" id="mainQuestion">Do you love me? 🤗</h1>
+    <p id="subtitle">monu is all yours 💖</p>
+    <div class="countdown" id="countdown">⏰ Think carefully... <span id="timer">10</span>s</div>
+
+    <div class="btn">
+      <a href="yes.html" id="yesBtn" onmouseover="playSound()">Yes! 💕</a>
+      <a href="no1.html" id="move-random" onmouseover="playSound()">No 💔</a>
+    </div>
+    
+    <div class="hint" id="hint" style="display: none;">💡 Hint: The right answer makes both of us happy! 😊</div>
+  </div>
+  
+  <script src="script.js"></script>
+  <script>
+    // Create floating particles
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.width = Math.random() * 6 + 4 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.animationDelay = Math.random() * 2 + 's';
+      particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.getElementById('particles').appendChild(particle);
+      
+      setTimeout(() => {
+        particle.remove();
+      }, 5000);
+    }
+    
+    // Create particles every 300ms (reduced for mobile performance)
+    const particleInterval = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 500 : 200;
+    setInterval(createParticle, particleInterval);
+    
+    // Sound effect (with mobile compatibility)
+    function playSound() {
+      try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+      } catch (e) {
+        // Fallback for browsers that don't support Web Audio API
+        console.log('Audio not supported');
+      }
+    }
+    
+    // Mobile-optimized countdown timer
+    let timeLeft = 15; // Increased time for mobile users
+    const countdown = setInterval(() => {
+      timeLeft--;
+      document.getElementById('timer').textContent = timeLeft;
+      
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        document.getElementById('countdown').textContent = '⚠️ Choose your heart! ⚠️';
+        document.getElementById('hint').style.display = 'block';
+        
+        // Add gentle vibration on mobile
+        if (navigator.vibrate) {
+          navigator.vibrate([200, 100, 200]);
+        }
+      }
+    }, 1000);
+    
+    // Add double-click Easter egg (changed to tap for mobile)
+    const container = document.getElementById('mainContainer');
+    let tapCount = 0;
+    
+    container.addEventListener('click', function() {
+      tapCount++;
+      if (tapCount === 2) {
+        this.style.transform = 'rotate(360deg)';
+        this.style.transition = 'transform 1s ease-in-out';
+        setTimeout(() => {
+          this.style.transform = 'rotate(0deg)';
+        }, 1000);
+        tapCount = 0;
+      }
+      setTimeout(() => { tapCount = 0; }, 500);
+    });
+    
+    // Enhanced mobile-friendly hover effects
+    const yesBtn = document.getElementById('yesBtn');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      // Touch events for mobile
+      yesBtn.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(1.2) rotate(5deg)';
+        this.innerHTML = 'YES! YES! YES! 😍';
+        if (navigator.vibrate) {
+          navigator.vibrate(100);
+        }
+      });
+      
+      yesBtn.addEventListener('touchend', function() {
+        setTimeout(() => {
+          this.style.transform = 'scale(1) rotate(0deg)';
+          this.innerHTML = 'Yes! 💕';
+        }, 200);
+      });
+    } else {
+      // Mouse events for desktop
+      yesBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.2) rotate(5deg)';
+        this.innerHTML = 'YES! YES! YES! 😍';
+      });
+      
+      yesBtn.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+        this.innerHTML = 'Yes! 💕';
+      });
+    }
+  </script>
+</body>
+
+</html>
